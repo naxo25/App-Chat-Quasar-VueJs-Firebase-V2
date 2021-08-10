@@ -1,0 +1,45 @@
+{
+  "2" : {
+    "1" : {
+      "-MR30m2iITeP870e5566" : {
+        "from" : "me",
+        "hora" : "00:11 15/01/21",
+        "text" : "dsa",
+        "textweb" : "dsa",
+        "tipo" : "text"
+      }
+    },
+    "0" : {
+      "-MRM795NMFBKgOntbDd-" : {
+        "cant_msjs" : 1,
+        "from" : "them",
+        "text" : "Bienvenido a mi aplicación móvil",
+        "textweb" : "Bienvenido a mi aplicación móvil",
+        "tipo" : "text"
+      },
+      "-MRM7P3wC87JWYEAMqX9" : {
+        "from" : "them",
+        "hora" : "17:13 18/01/21",
+        "text" : "Es una prueba",
+        "textweb" : "Es una prueba",
+        "tipo" : "text"
+      }
+    }
+  },
+  "1" : {
+    "2" : {
+      "-MKuCBmXIa75xe_6uZN7" : {
+        "from" : "them",
+        "text" : "Bienvenido a mi aplicación móvil",
+        "textweb" : "Bienvenido a mi aplicación móvil"
+      },
+      "-MKurp-o-R2BAkEiCpdd" : {
+        "from" : "them",
+        "hora" : "15:57 30/10",
+        "text" : "Huana jaja",
+        "textweb" : "Huana jaja",
+        "tipo" : "text"
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "1" : {
+    "img" : "img/64219876.jpg",
+    "img_thumb" : "img/64219876.jpg",
+    "online" : true
+  },
+  "0" : {
+    "amigos" : {
+      "1" : {
+        "null" : ""
+      },
+      "2" : {
+        "null" : ""
+      }
+    },
+    "online" : true
+  },
+  "2" : {
+    "amigos" : {
+      "1" : {
+        "null" : ""
+      }
+    }
+  }
+}
