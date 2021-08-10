@@ -1,9 +1,9 @@
 <template>
-  <div class="q-pa-md row justify-center">
-    <div style="width: 100%; max-width: 400px">
-      <q-chat-message
+  <q-page class="q-pa-md row justify-center">
+    <div style="width: 100%; max-width: 400px" class="chats"> 
+      <!-- <q-chat-message
         label="Sunday, 19th"
-      />
+      /> -->
       <div v-for="chat in Chats">
 	      <q-chat-message
 	        :sent="chat.from === 'me'"
@@ -24,12 +24,13 @@
         <q-btn @click='send' round flat icon="mic" />
       </q-toolbar>
     </q-footer>
-  </div>
+  </q-page>
+  <!-- <div class="nax-spinner"></div> -->
 </template>
 
 <script>
 
-import { inject, onMounted, ref, computed } from 'vue'
+import { inject, onMounted, ref, computed, onBeforeUnmount } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
@@ -38,13 +39,14 @@ export default {
     const router = useRoute()
     const message = ref()
     const otherKey = router.params.otherKey
+    // const limit = ref(20)
     
     const Chats = computed(() => {
       if(!store.state.chats[otherKey]) {
-        console.log(false)
-        store.dispatch('getChats', otherKey)
+        store.dispatch('getChats', { otherKey, limit: 20 }).then(() => {
+          scrollBottom()
+        })
       }
-      console.log(store.state.chats)
       return store.state.chats[otherKey]
     })
 
@@ -64,6 +66,42 @@ export default {
       });
       message.value = ''
     }
+
+    const scrollBottom = () => {
+      setTimeout(() => {
+        // document.querySelector('.nax-spinner').style.opacity = 0;
+        document.querySelector('.chats').style.opacity = 1;
+        // window.scroll(0, 99999)
+        window.scrollTo({top: store.state.users[otherKey].scroll, behavior: 'smooth' })
+      }, 50);
+    }
+
+
+    onMounted(() => {
+
+      scrollBottom()
+      let scroll = document.scrollingElement || document.body;
+      let altoPost = scroll.scrollHeight;
+
+      const Scroll = () => {
+        store.state.users[otherKey].scroll = window.scrollY
+        let alturamax = scroll.scrollHeight;
+
+        if ( (window.scrollY < 200 && window.scrollY > 100 && alturamax != altoPost) ) {
+          window.scroll(0, alturamax - altoPost)
+          store.state.users[otherKey].msjs += 10;
+          store.dispatch('getChats', { otherKey, limit: store.state.users[otherKey].msjs })
+          altoPost = alturamax
+        }
+      }
+
+      window.addEventListener('scroll', Scroll);
+
+      onBeforeUnmount(() => {
+        window.removeEventListener('scroll', Scroll);
+      })
+
+    })
 
     const fullscreen = () => {}
 
@@ -87,5 +125,36 @@ export default {
 <style lang="css" scoped>
   a {
     text-decoration: none; color: blue;
+  }
+  .nax-spinner {
+    opacity: 1;
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    width: 10em;
+    height: 10em;
+    position: absolute;
+    top: 35%;
+    right: 0;
+    left: 0;
+    z-index: 9999;
+    margin: 60px auto;
+    border-radius: 50%;
+    font-size: 15px;
+    border-left-color: #09f;
+    animation: spin 1s ease infinite;
+    transition: .5s;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  .chats {
+    opacity: 0;
+    transition: .5s;
   }
 </style>
