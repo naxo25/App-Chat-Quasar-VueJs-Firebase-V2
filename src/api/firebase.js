@@ -13,16 +13,15 @@ export default () => {
 	return {
 		getUsers(ID) {
 			userId = ID
-			return instance.firestore().collection('users/' + ID + '/amigos')
+			return instance.firestore().collection('users/' + ID + '/amigos').limit(20)
 		},
 		getUser(otherID) {
 			return instance.firestore().collection('users/').doc(otherID)
 		},
-		getChats: (otherID) => {
-			return instance.database().ref('chats/' + userId + '/' + otherID)
+		getChats: ({ otherKey, limit }) => {
+			return instance.database().ref('chats/' + userId + '/' + otherKey).limitToLast(limit)
 		},
 		sendChat: ({ otherKey, msj }) => {
-			console.log(otherKey, msj)
 			const push = {
 				from: 'me',
 				hora: new Date().toLocaleString(),

@@ -27,6 +27,8 @@ export default createStore({
           const friend = await getUser(doc.id)
           friend.onSnapshot(doc => {
             state.users[doc.id] = doc.data()
+            state.users[doc.id].msjs = 20
+            state.users[doc.id].scroll = 99999
           })
         });
       })
