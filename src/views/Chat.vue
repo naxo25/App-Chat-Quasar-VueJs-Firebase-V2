@@ -30,7 +30,7 @@
 
 <script>
 
-import { inject, onMounted, ref, computed, onBeforeUnmount } from 'vue'
+import { inject, onMounted, ref, computed, onBeforeUnmount, onDestroyed } from 'vue'
 import { useRoute } from 'vue-router'
 
 export default {
@@ -72,10 +72,11 @@ export default {
         // document.querySelector('.nax-spinner').style.opacity = 0;
         document.querySelector('.chats').style.opacity = 1;
         // window.scroll(0, 99999)
-        window.scrollTo({top: store.state.users[otherKey].scroll, behavior: 'smooth' })
+        window.scrollTo({top: store.state.users[otherKey].scroll })
       }, 50);
     }
 
+    const Scroll = ref({})
 
     onMounted(() => {
 
@@ -83,7 +84,7 @@ export default {
       let scroll = document.scrollingElement || document.body;
       let altoPost = scroll.scrollHeight;
 
-      const Scroll = () => {
+      Scroll.value = () => {
         store.state.users[otherKey].scroll = window.scrollY
         let alturamax = scroll.scrollHeight;
 
@@ -95,12 +96,11 @@ export default {
         }
       }
 
-      window.addEventListener('scroll', Scroll);
+      window.addEventListener('scroll', Scroll.value);
+    })
 
-      onBeforeUnmount(() => {
-        window.removeEventListener('scroll', Scroll);
-      })
-
+    onBeforeUnmount(()=>{
+      window.removeEventListener('scroll', Scroll.value);
     })
 
     const fullscreen = () => {}

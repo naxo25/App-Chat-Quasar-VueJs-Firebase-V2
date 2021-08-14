@@ -3,6 +3,11 @@
 A Quasar Framework app
 
 ## Install the dependencies
+
+### Yarn 
+
+	npm install --global yarn
+
 ```bash
 yarn
 ```
